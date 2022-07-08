@@ -87,7 +87,7 @@ while [ "$done" == false ]; do
   done
   GC='\033[0;32m'
   NC='\033[0m'
-  echo -n "${GC}- Input 0-$((${#actions[@]} - 1)):${NC} "
+  echo -e -n "${GC}- Input 0-$((${#actions[@]} - 1)):${NC} "
   read -r action
 
   [ -z "$action" ] && error "Input is required" && continue
