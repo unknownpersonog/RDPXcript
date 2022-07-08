@@ -85,8 +85,9 @@ while [ "$done" == false ]; do
   for i in "${!options[@]}"; do
     output "[$i] ${options[$i]}"
   done
-
-  echo -n "\033[0;32m- Input 0-$((${#actions[@]} - 1)):\033[0m "
+  GC='\033[0;32m'
+  NC='\033[0m'
+  echo -n "${GC}- Input 0-$((${#actions[@]} - 1)):${NC} "
   read -r action
 
   [ -z "$action" ] && error "Input is required" && continue
