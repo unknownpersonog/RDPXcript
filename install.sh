@@ -7,7 +7,6 @@ SCRIPT_VERSION="master"
 GITHUB_BASE_URL="https://raw.githubusercontent.com/unknownpersonog/CRDXcript"
 
 LOG_PATH="/var/log/CRDXcript.log"
-COLOUR_BLUE='\033[0;34m'
 # exit with error status code if user is not root
 if [[ $EUID -ne 0 ]]; then
   echo "* This script must be executed with root privileges (sudo)." 1>&2
@@ -22,7 +21,7 @@ if ! [ -x "$(command -v curl)" ]; then
 fi
 
 output() {
-  echo -e "- ${COLOUR _BLUE} ${1}"
+  echo -e "\033[0;34m- ${1}"
 }
 
 error() {
