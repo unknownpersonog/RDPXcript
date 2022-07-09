@@ -45,56 +45,5 @@ else
    exit 1
 fi
 }
-user() {
-# Purpose - Script to add a user to Linux system including passsword
-# Author - Vivek Gite <www.cyberciti.biz> under GPL v2.0+
-# ------------------------------------------------------------------
-# Am i Root user?
-outputo() {
-  echo -e "\033[0;34m\n- ${1} \033[0m"
-}
-asko() {
-  GoC='\033[0;32m'
-  NoC='\033[0m'
-  echo -e -n "${GoC}- ${1}${NoC} "
-}
 
-erroro() {
-  RoC='\033[0;31m'
-  NoC='\033[0m'
-  echo -e "${RoC}\nERROR: ${1}${NoC}"
-}
-if [ $(id -u) -eq 0 ]; then
-	asko "Enter username to setup with CRD: "
-	read username
-	asko "Enter password for user: "
-	read -s password
-	if [[ "$username" == root ]]
-	then
-	erroro "Root user is not allowed!"
-	exit 1
-	fi
-	egrep "^$username" /etc/passwd >/dev/null
-	if [ $? -eq 0 ]; then
-		outputo "$username exists!"
-		asko "Do you want continue with this user? (y/N): "
-		read -r continue
-		if [[ "$continue" =~ [Yy] ]]
-		then
-		crd_setup
-		else
-		erroro "User already exists"
-		exit 1
-		fi
-	else
-		pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
-		useradd -m -p "$pass" "$username"
-		[ $? -eq 0 ] && outputo "User has been added to system!" || erroro "Failed to add a user!"
-	fi
-else
-	outputo "Only root may add a user to the system."
-	exit 2
-fi
-}
 os_check
-user
