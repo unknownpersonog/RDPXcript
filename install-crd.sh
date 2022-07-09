@@ -70,6 +70,7 @@ user_pass() {
                 output "Username already exists!" && exit 1
                 ;;
 		esac
+	fi
 	ask "Enter password to setup user: "
 	read -r password
 		pass=$(perl -e 'print crypt($ARGV[0], "password")' "$password")
