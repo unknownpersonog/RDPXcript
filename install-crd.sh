@@ -16,6 +16,6 @@ detect_distro() {
 
   OS=$(echo "$OS" | awk '{print tolower($0)}')
   OS_VER_MAJOR=$(echo "$OS_VER" | cut -d. -f1)
-  echo -e "$OS"
 }
 detect_distro
+echo -e "Found Current OS: $OS"
