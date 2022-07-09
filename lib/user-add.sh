@@ -20,9 +20,9 @@ error() {
 
 if [ $(id -u) -eq 0 ]; then
 	ask "Enter username to setup with CRD: "
-	read -p username
+	read username
 	ask "Enter password for user: "
-	read -s -p password
+	read -s password
 	if [[ "$username" == root ]]
 	then
 	error "Root user is not allowed!"
@@ -30,7 +30,7 @@ if [ $(id -u) -eq 0 ]; then
 	fi
 	egrep "^$username" /etc/passwd >/dev/null
 	if [ $? -eq 0 ]; then
-		echo "$username exists!"
+		output "$username exists!"
 		ask "Do you want continue with this user? (y/N): "
 		read -r continue
 		if [[ "$continue" =~ [Yy] ]]
