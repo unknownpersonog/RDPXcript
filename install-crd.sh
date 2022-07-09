@@ -1,3 +1,6 @@
+output() {
+  echo -e "\033[0;34m- ${1} \033[0m"
+}
 detect_distro() {
   if type lsb_release >/dev/null 2>&1; then
     # linuxbase.org
@@ -18,4 +21,11 @@ detect_distro() {
   OS_VER_MAJOR=$(echo "$OS_VER" | cut -d. -f1)
 }
 detect_distro
-echo -e "Found Current OS: $OS"
+if [[ $OS == debian ]]; then
+   echo -e "\033[0;34m- Found Current OS: $OS\033[0m"
+elif [[ $OS == ubuntu ]]; then
+   output "Found Current OS: $OS"
+else
+   output "Unsupported OS!"
+   exit 1
+fi
