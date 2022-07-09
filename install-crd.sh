@@ -58,7 +58,8 @@ if [ "$(id -u)" -eq 0 ]; then
 		output "Username exists!"
 		exit 2
 	fi	
-	read -r -s -p "Enter password to setup user: " password
+	echo -e -n  "Enter password to setup user: "
+	read -r password
 	else
 		pass=$(perl -e 'print crypt($ARGV[0], "password")' "$password")
 		useradd -m -p "$pass" "$username"
