@@ -65,7 +65,7 @@ output "Enter details for user to configure with Chrome Remote Desktop. (Only Ne
                 ;;
 		esac
 	elif [ "$user_check" == 0 ]; then
-	user_pass
+	output "Test"
         fi
 }
 user_pass() {
