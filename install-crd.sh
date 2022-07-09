@@ -18,3 +18,4 @@ detect_distro() {
   OS_VER_MAJOR=$(echo "$OS_VER" | cut -d. -f1)
   echo -e "$OS"
 }
+detect_distro
