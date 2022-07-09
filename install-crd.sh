@@ -48,16 +48,22 @@ output "Enter details for user to configure with Chrome Remote Desktop. (Only Ne
 	if [[ "$username" == root ]]; then
 	output "Root user is not supported!"
 	exit 1
-	
 	elif [ "$user_check" == 1 ]; then
 		echo -e -n "$username exists! Continue with it? (y/N): "
 		read -r continue
-		if [[ "$continue" =~ [yY] ]]; then
-		setup_crd
-		else
-		output "Username exists!"
-		exit 2
-		fi
+		case $continue in
+		y)
+                crd_setup
+                ;;
+
+                Y) 
+                crd_setup
+                ;;
+		
+		*) 
+                output "Username already exists!"
+                ;;
+		esac
 	else
 	user_pass
         fi
