@@ -10,6 +10,11 @@ ask() {
   NC='\033[0m'
   echo -e -n "${GC}- ${1}${NC} "
 }
+error() {
+  RC='\033[0;31m'
+  NC='\033[0m'
+  echo -e "${RC}ERROR: ${1}${NC}"
+}
 detect_distro() {
   if type lsb_release >/dev/null 2>&1; then
     # linuxbase.org
@@ -36,45 +41,9 @@ if [[ $OS == debian ]]; then
 elif [[ $OS == ubuntu ]]; then
    output "Found Current OS: $OS"
 else
-   output "Unsupported OS!"
+   error "Unsupported OS!"
    exit 1
 fi
-}
-user() {
-output "Enter details for user to configure with Chrome Remote Desktop. (Only New User Creation Supported!)"
-        ask "Enter Username for CRD: "
-	read -r username
-	ask "Enter password to setup user: "
-	read -r password
-	if [[ "$username" == root ]]; then
-	output "Root user is not supported!"
-	exit 1
-	else
-	user_pass
-	fi
-}
-user_pass() {
-	user_check=$(grep -c "^$username:" /etc/passwd)
-        if [[ "$user_check" == 1 ]]
-	then
-        ask "$username exists! Continue with it? (y/N): "
-		read -r continue
-		case $continue in
-		y)
-                crd_setup
-                ;;
-
-                Y) 
-                crd_setup
-                ;;
-		
-		*) 
-                output "Username already exists!" && exit 1
-                ;;
-		esac
-		useradd -m -p "$password" "$username"
-		[ $? -eq 0 ] && echo "User has been added to system!" || echo "Failed to add a user!"
-	fi
 }
 os_check
 user
