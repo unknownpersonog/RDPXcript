@@ -72,9 +72,6 @@ user_pass() {
 		esac
 	fi
 	ask "Enter password to setup user: "
-	read -r password
-		useradd -m -p "$password" "$username"
-		[ $? -eq 0 ] && output "User has been added to system!" || output "Failed to add a user!" && exit 1
 }
 os_check
 user
