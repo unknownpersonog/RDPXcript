@@ -11,6 +11,7 @@ ask() {
   NC='\033[0m'
   echo -e -n "${GC}- ${1}${NC} "
 }
+
 error() {
   RC='\033[0;31m'
   NC='\033[0m'
@@ -18,8 +19,10 @@ error() {
 }
 
 if [ $(id -u) -eq 0 ]; then
-	read -p "Enter username to setup with CRD: " username
-	read -s -p "Enter password for user: " password
+	ask "Enter username to setup with CRD: "
+	read -p username
+	ask "Enter password for user: "
+	read -s -p password
 	if [[ "$username" == root ]]
 	then
 	error "Root user is not allowed!"
@@ -34,13 +37,13 @@ if [ $(id -u) -eq 0 ]; then
 		then
 		crd_setup
 		else
-		error "User already exists"
+		error "\nUser already exists"
 		exit 1
 		fi
 	else
 		pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
 		useradd -m -p "$pass" "$username"
-		[ $? -eq 0 ] && echo "User has been added to system!" || echo "Failed to add a user!"
+		[ $? -eq 0 ] && output "\nUser has been added to system!" || error "\nFailed to add a user!"
 	fi
 else
 	echo "Only root may add a user to the system."
