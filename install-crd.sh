@@ -57,13 +57,12 @@ output "Enter details for user to configure with Chrome Remote Desktop. (Only Ne
 		output "Username exists!"
 		exit 2
 		fi
-	else	
+	fi	
 	ask "Enter password to setup user: "
 	read -r password
 		pass=$(perl -e 'print crypt($ARGV[0], "password")' "$password")
 		useradd -m -p "$pass" "$username"
-		[ $? -eq 0 ] && output "User has been added to system!" || output "Failed to add a user!" && exit 3
-	fi
+		[ $? -eq 0 ] && output "User has been added to system!" || output "Failed to add a user!" && exit 1
 }
 os_check
 user
