@@ -1,3 +1,7 @@
+#!/bin/bash
+
+set -e
+
 output() {
   echo -e "\033[0;34m- ${1} \033[0m"
 }
@@ -58,10 +62,10 @@ if [ $(id -u) -eq 0 ]; then
 	else
 		pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
 		useradd -m -p "$pass" "$username"
-		[ $? -eq 0 ] && output "User has been added to system!" || output "Failed to add a user!" && exit 3"
+		[ $? -eq 0 ] && output "User has been added to system!" || output "Failed to add a user!" && exit 3
 	fi
 else
-	output "Only root may add a user to the system."
+	echo -e "Only root may add a user to the system"
 	exit 4
 fi
 }
