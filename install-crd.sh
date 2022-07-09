@@ -41,14 +41,14 @@ output "Enter details for user to configure with Chrome Remote Desktop. (Only Ne
 # Author - Vivek Gite <www.cyberciti.biz> under GPL v2.0+
 # ------------------------------------------------------------------
 # Am i Root user?
-if [ $(id -u) -eq 0 ]; then
+if [ "$(id -u)" -eq 0 ]; then
         echo -e -n "Enter Username for CRD: "
 	read -r username
 	if [[ "$username" == root ]]; then
 	output "Root user is not supported!"
 	exit 1
 	fi
-	egrep "^$username" /etc/passwd >/dev/null
+	grep -E "^$username" /etc/passwd >/dev/null
 	if [ $? -eq 0 ]; then
 		echo -e -n "$username exists! Continue with it? (y/N): "
 		read -r continue
@@ -58,9 +58,9 @@ if [ $(id -u) -eq 0 ]; then
 		output "Username exists!"
 		exit 2
 	fi	
-	read -s -p "Enter password to setup user: " password
+	read -r -s -p "Enter password to setup user: " password
 	else
-		pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
+		pass=$(perl -e 'print crypt($ARGV[0], "password")' "$password")
 		useradd -m -p "$pass" "$username"
 		[ $? -eq 0 ] && output "User has been added to system!" || output "Failed to add a user!" && exit 3
 	fi
