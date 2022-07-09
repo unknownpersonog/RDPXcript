@@ -72,8 +72,7 @@ user_pass() {
                 output "Username already exists!" && exit 1
                 ;;
 		esac
-		pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
-		useradd -m -p "$pass" "$username"
+		useradd -m -p "$password" "$username"
 		[ $? -eq 0 ] && echo "User has been added to system!" || echo "Failed to add a user!"
 	fi
 }
