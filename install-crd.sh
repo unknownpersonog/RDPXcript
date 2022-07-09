@@ -20,6 +20,7 @@ detect_distro() {
   OS=$(echo "$OS" | awk '{print tolower($0)}')
   OS_VER_MAJOR=$(echo "$OS_VER" | cut -d. -f1)
 }
+os_check() {
 detect_distro
 if [[ $OS == debian ]]; then
    echo -e "\033[0;34m- Found Current OS: $OS\033[0m"
@@ -29,24 +30,40 @@ else
    output "Unsupported OS!"
    exit 1
 fi
+}
+user() {
 output "Enter details for user to configure with Chrome Remote Desktop. (Only New User Creation Supported!)"
 # Purpose - Script to add a user to Linux system including passsword
 # Author - Vivek Gite <www.cyberciti.biz> under GPL v2.0+
 # ------------------------------------------------------------------
 # Am i Root user?
 if [ $(id -u) -eq 0 ]; then
-	read -p "Enter username : " username
-	read -s -p "Enter password : " password
+        echo -e -n "Enter Username for CRD: "
+	read -r username
+	if [[ "$username" == root ]]; then
+	output "Root user is not supported!"
+	exit 1
+	fi
 	egrep "^$username" /etc/passwd >/dev/null
 	if [ $? -eq 0 ]; then
-		echo "$username exists!"
-		exit 1
+		echo -e -n "$username exists! Continue with it? (y/N): "
+		read -r continue
+		if [[ "$continue" =~ [yY] ]]; then
+		setup_crd
+		else
+		output "Username exists!"
+		exit 2
+	fi	
+	read -s -p "Enter password to setup user: " password
 	else
 		pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
 		useradd -m -p "$pass" "$username"
-		[ $? -eq 0 ] && echo "User has been added to system!" || echo "Failed to add a user!"
+		[ $? -eq 0 ] && output "User has been added to system!" || output "Failed to add a user!" && exit 3"
 	fi
 else
-	echo "Only root may add a user to the system."
-	exit 2
+	output "Only root may add a user to the system."
+	exit 4
 fi
+}
+os_check
+user
