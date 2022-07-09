@@ -58,6 +58,8 @@ output "Enter details for user to configure with Chrome Remote Desktop. (Only Ne
 		exit 2
 		fi
 	fi	
+}
+user_pass() {
 	ask "Enter password to setup user: "
 	read -r password
 		pass=$(perl -e 'print crypt($ARGV[0], "password")' "$password")
@@ -66,3 +68,4 @@ output "Enter details for user to configure with Chrome Remote Desktop. (Only Ne
 }
 os_check
 user
+user_pass
