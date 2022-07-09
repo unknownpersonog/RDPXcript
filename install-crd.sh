@@ -48,8 +48,8 @@ output "Enter details for user to configure with Chrome Remote Desktop. (Only Ne
 	if [[ "$username" == root ]]; then
 	output "Root user is not supported!"
 	exit 1
-	fi
-	if [ "$user_check" == 1 ]; then
+	
+	elif [ "$user_check" == 1 ]; then
 		echo -e -n "$username exists! Continue with it? (y/N): "
 		read -r continue
 		if [[ "$continue" =~ [yY] ]]; then
@@ -58,6 +58,8 @@ output "Enter details for user to configure with Chrome Remote Desktop. (Only Ne
 		output "Username exists!"
 		exit 2
 		fi
+	else
+	user_pass
         fi
 }
 user_pass() {
@@ -69,4 +71,3 @@ user_pass() {
 }
 os_check
 user
-user_pass
