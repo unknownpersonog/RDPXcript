@@ -44,15 +44,18 @@ user() {
 output "Enter details for user to configure with Chrome Remote Desktop. (Only New User Creation Supported!)"
         ask "Enter Username for CRD: "
 	read -r username
-	user_check=$(grep -c "^$username:" /etc/passwd)
 	if [[ "$username" == root ]]; then
 	output "Root user is not supported!"
 	exit 1
-	elif [ "$user_check" == 0 ]; then
-	user_pass
-        
 	else
-		ask "$username exists! Continue with it? (y/N): "
+	user_pass
+	fi
+}
+user_pass() {
+	user_check=$(grep -c "^$username:" /etc/passwd)
+        if [[ "$user_check" == 1 ]]
+	then
+        ask "$username exists! Continue with it? (y/N): "
 		read -r continue
 		case $continue in
 		y)
@@ -67,9 +70,6 @@ output "Enter details for user to configure with Chrome Remote Desktop. (Only Ne
                 output "Username already exists!" && exit 1
                 ;;
 		esac
-	fi
-}
-user_pass() {
 	ask "Enter password to setup user: "
 	read -r password
 		pass=$(perl -e 'print crypt($ARGV[0], "password")' "$password")
