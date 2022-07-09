@@ -4,7 +4,7 @@
 # ------------------------------------------------------------------
 # Am i Root user?
 output() {
-  echo -e "\033[0;34m- ${1} \033[0m"
+  echo -e "\033[0;34m- \n${1} \033[0m"
 }
 ask() {
   GC='\033[0;32m'
@@ -15,7 +15,7 @@ ask() {
 error() {
   RC='\033[0;31m'
   NC='\033[0m'
-  echo -e "${RC}ERROR: ${1}${NC}"
+  echo -e "${RC}\nERROR: ${1}${NC}"
 }
 
 if [ $(id -u) -eq 0 ]; then
@@ -37,13 +37,13 @@ if [ $(id -u) -eq 0 ]; then
 		then
 		crd_setup
 		else
-		error "\nUser already exists"
+		error "User already exists"
 		exit 1
 		fi
 	else
 		pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
 		useradd -m -p "$pass" "$username"
-		[ $? -eq 0 ] && output "\nUser has been added to system!" || error "\nFailed to add a user!"
+		[ $? -eq 0 ] && output "User has been added to system!" || error "Failed to add a user!"
 	fi
 else
 	echo "Only root may add a user to the system."
