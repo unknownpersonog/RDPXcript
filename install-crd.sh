@@ -48,8 +48,11 @@ output "Enter details for user to configure with Chrome Remote Desktop. (Only Ne
 	if [[ "$username" == root ]]; then
 	output "Root user is not supported!"
 	exit 1
-	elif [ "$user_check" == 1 ]; then
-		echo -e -n "$username exists! Continue with it? (y/N): "
+	elif [ "$user_check" == 0 ]; then
+	user_pass
+        
+	else
+		ask "$username exists! Continue with it? (y/N): "
 		read -r continue
 		case $continue in
 		y)
@@ -61,12 +64,10 @@ output "Enter details for user to configure with Chrome Remote Desktop. (Only Ne
                 ;;
 		
 		*) 
-                output "Username already exists!"
+                output "Username already exists!" && exit 1
                 ;;
 		esac
-	elif [ "$user_check" == 0 ]; then
-	output "Test"
-        fi
+	fi
 }
 user_pass() {
 	ask "Enter password to setup user: "
