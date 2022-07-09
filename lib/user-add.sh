@@ -20,7 +20,7 @@ error() {
 if [ $(id -u) -eq 0 ]; then
 	read -p "Enter username to setup with CRD: " username
 	read -s -p "Enter password for user: " password
-	if [[ "$username" == root ]
+	if [[ "$username" == root ]]
 	then
 	error "Root user is not allowed!"
 	exit 1
