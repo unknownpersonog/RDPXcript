@@ -44,6 +44,8 @@ user() {
 output "Enter details for user to configure with Chrome Remote Desktop. (Only New User Creation Supported!)"
         ask "Enter Username for CRD: "
 	read -r username
+	ask "Enter password to setup user: "
+	read -r password
 	if [[ "$username" == root ]]; then
 	output "Root user is not supported!"
 	exit 1
@@ -71,7 +73,6 @@ user_pass() {
                 ;;
 		esac
 	fi
-	echo -e -n "Enter password to setup user: "
 }
 os_check
 user
