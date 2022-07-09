@@ -1,4 +1,9 @@
-f [ $(id -u) -eq 0 ]; then
+#!/bin/bash
+# Purpose - Script to add a user to Linux system including passsword
+# Author - Vivek Gite <www.cyberciti.biz> under GPL v2.0+
+# ------------------------------------------------------------------
+# Am i Root user?
+if [ $(id -u) -eq 0 ]; then
 	read -p "Enter username : " username
 	read -s -p "Enter password : " password
 	egrep "^$username" /etc/passwd >/dev/null
