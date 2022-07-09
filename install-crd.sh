@@ -5,6 +5,10 @@ set -e
 output() {
   echo -e "\033[0;34m- ${1} \033[0m"
 }
+ask() {
+  GC='\033[0;32m'
+  NC='\033[0m'
+  echo -e -n "${GC}- {$1}${NC} "
 detect_distro() {
   if type lsb_release >/dev/null 2>&1; then
     # linuxbase.org
@@ -37,19 +41,14 @@ fi
 }
 user() {
 output "Enter details for user to configure with Chrome Remote Desktop. (Only New User Creation Supported!)"
-# Purpose - Script to add a user to Linux system including passsword
-# Author - Vivek Gite <www.cyberciti.biz> under GPL v2.0+
-# ------------------------------------------------------------------
-# Am i Root user?
-if [ "$(id -u)" -eq 0 ]; then
-        echo -e -n "Enter Username for CRD: "
+        ask "Enter Username for CRD: "
 	read -r username
 	if [[ "$username" == root ]]; then
 	output "Root user is not supported!"
 	exit 1
 	fi
-	user_exist=$(grep -E "^$username" /etc/passwd)
-	if [ $user_exist ]; then
+	user_exist=$(grep -c "^$username:" /etc/passwd)
+	if [ $user_exist == 1 ]; then
 		echo -e -n "$username exists! Continue with it? (y/N): "
 		read -r continue
 		if [[ "$continue" =~ [yY] ]]; then
@@ -59,15 +58,11 @@ if [ "$(id -u)" -eq 0 ]; then
 		exit 2
 		fi
 	fi	
-	echo -e -n  "Enter password to setup user: "
+	ask "Enter password to setup user: "
 	read -r password
 		pass=$(perl -e 'print crypt($ARGV[0], "password")' "$password")
 		useradd -m -p "$pass" "$username"
 		[ $? -eq 0 ] && output "User has been added to system!" || output "Failed to add a user!" && exit 3
-else
-	echo -e "Only root may add a user to the system"
-	exit 4
-fi
 }
 os_check
 user
