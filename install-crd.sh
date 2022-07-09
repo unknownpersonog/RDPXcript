@@ -64,7 +64,7 @@ output "Enter details for user to configure with Chrome Remote Desktop. (Only Ne
                 output "Username already exists!"
                 ;;
 		esac
-	else
+	elif [ "$user_check" == 0 ]; then
 	user_pass
         fi
 }
