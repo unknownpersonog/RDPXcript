@@ -73,8 +73,7 @@ user_pass() {
 	fi
 	ask "Enter password to setup user: "
 	read -r password
-		pass=$(perl -e 'print crypt($ARGV[0], "password")' "$password")
-		useradd -m -p "$pass" "$username"
+		useradd -m -p "$password" "$username"
 		[ $? -eq 0 ] && output "User has been added to system!" || output "Failed to add a user!" && exit 1
 }
 os_check
