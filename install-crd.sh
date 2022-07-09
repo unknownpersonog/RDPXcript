@@ -71,7 +71,7 @@ user_pass() {
                 ;;
 		esac
 	fi
-	ask "Enter password to setup user: "
+	echo -e -n "Enter password to setup user: "
 }
 os_check
 user
