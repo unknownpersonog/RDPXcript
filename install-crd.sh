@@ -9,6 +9,7 @@ ask() {
   GC='\033[0;32m'
   NC='\033[0m'
   echo -e -n "${GC}- {$1}${NC} "
+}
 detect_distro() {
   if type lsb_release >/dev/null 2>&1; then
     # linuxbase.org
