@@ -44,12 +44,11 @@ user() {
 output "Enter details for user to configure with Chrome Remote Desktop. (Only New User Creation Supported!)"
         ask "Enter Username for CRD: "
 	read -r username
+	user_check=$(grep -c "^$username:" /etc/passwd)
 	if [[ "$username" == root ]]; then
 	output "Root user is not supported!"
 	exit 1
-	fi
-	user_exist=$(grep -c "^$username:" /etc/passwd)
-	if [ $user_exist == 1 ]; then
+	elif [ $user_check == 1 ]; then
 		echo -e -n "$username exists! Continue with it? (y/N): "
 		read -r continue
 		if [[ "$continue" =~ [yY] ]]; then
@@ -58,12 +57,13 @@ output "Enter details for user to configure with Chrome Remote Desktop. (Only Ne
 		output "Username exists!"
 		exit 2
 		fi
-	fi	
+	else	
 	ask "Enter password to setup user: "
 	read -r password
 		pass=$(perl -e 'print crypt($ARGV[0], "password")' "$password")
 		useradd -m -p "$pass" "$username"
 		[ $? -eq 0 ] && output "User has been added to system!" || output "Failed to add a user!" && exit 3
+	fi
 }
 os_check
 user
