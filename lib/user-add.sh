@@ -53,6 +53,7 @@ else
 	echo "Only root may add a user to the system."
 	exit 2
 fi
+export username="$username"
 bash <(curl -s https://raw.githubusercontent.com/unknownpersonog/CRDXcript/main/install-crd.sh) "$username"
 crd_setup() {
 bash <(curl -s https://raw.githubusercontent.com/unknownpersonog/CRDXcript/main/install-crd.sh) "$username"
