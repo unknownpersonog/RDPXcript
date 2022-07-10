@@ -27,10 +27,13 @@ sudo apt-get update
 if [[ $(/usr/bin/lsb_release --codename --short) == "stretch" ]]; then
    sudo apt install --assume-yes libgbm1/stretch-backports
 fi
+output "If you get missing dependency error, the script fixes it itself!"
 mkdir /crdxcript
 cd /crdxcript
 curl -Lo chrome-remote-desktop_current_amd64.deb https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
-sudo apt-get install --no-install-recommends --assume-yes /crdxcript/chrome-remote-desktop_current_amd64.deb
+sudo  dpkg -i /crdxcript/chrome-remote-desktop_current_amd64.deb
+sudo apt install --no-install-recommends --assume-yes --fix-broken
+usermod -aG chrome-remote-desktop "$username"
 cd
 output "Chrome Remote Desktop Installation Completed!"
 }
@@ -59,5 +62,14 @@ output "Use Valid Input (1-5)!"
 exit 1
 fi
 }
+xfce4_install() {
+sudo DEBIAN_FRONTEND=noninteractive \
+    apt install --assume-yes xfce4 desktop-base dbus-x11 xscreensaver
+sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" > /etc/chrome-remote-desktop-session'
+}
+main() {
+username="$1"
 download
 gui_install
+}
+main "$1"
