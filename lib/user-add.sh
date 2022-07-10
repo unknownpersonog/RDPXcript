@@ -23,8 +23,7 @@ if [ $(id -u) -eq 0 ]; then
 	read username
 	ask "Enter password for user: "
 	read -s password
-	if [[ "$username" == root ]]
-	then
+	if [[ "$username" == root ]]; then
 	error "Root user is not allowed!"
 	exit 1
 	fi
