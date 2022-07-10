@@ -106,7 +106,6 @@ success=$(bash -c "$code")
 output "Chrome Remote Desktop Install Success. Access it at https://remotedesktop.google.com"
 }
 main() {
-username="$1"
 download
 gui_install
 }
