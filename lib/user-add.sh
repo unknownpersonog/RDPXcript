@@ -3,6 +3,13 @@
 # Author - Vivek Gite <www.cyberciti.biz> under GPL v2.0+
 # ------------------------------------------------------------------
 # Am i Root user?
+# check for curl
+if ! [ -x "$(command -v curl)" ]; then
+  echo "* curl is required in order for this script to work."
+  echo "* install using apt (Debian and derivatives) or yum/dnf (CentOS)"
+  exit 1
+fi
+
 output() {
   echo -e "\033[0;34m\n- ${1} \033[0m"
 }
