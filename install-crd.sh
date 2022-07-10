@@ -96,8 +96,10 @@ output "GUI Installed"
 output "Please go to https://remotedesktop.google.com/headless and click Begin -> Next -> Authorize -> Copy code for Debian"
 ask "Paste the code here: "
 read -r code
-modecode=$("$code" --user-name="$username")
-eval "$modecode"
+cat <<EOF >code.sh
+$code --user-name=$username
+EOF
+cat code.sh
 }
 main() {
 username="$1"
