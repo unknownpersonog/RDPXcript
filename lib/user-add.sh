@@ -23,10 +23,15 @@ if [ $(id -u) -eq 0 ]; then
 	read username
 	ask "Enter password for user: "
 	read -s password
-	if [[ "$username" == root ]]; then
-	error "Root user is not allowed!"
-	exit 1
-	fi
+	case $username in 
+
+          root)
+          error "Root user is not allowed!" && exit 1
+          ;;
+	  
+        esac
+
+
 	egrep "^$username" /etc/passwd >/dev/null
 	if [ $? -eq 0 ]; then
 		output "$username exists!"
