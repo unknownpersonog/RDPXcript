@@ -3,7 +3,7 @@
 set -e
 
 
-SCRIPT_VERSION="main"
+SCRIPT_VERSION="v1"
 GITHUB_BASE_URL="https://raw.githubusercontent.com/unknownpersonog/CRDXcript"
 
 LOG_PATH="/var/log/CRDXcript.log"
