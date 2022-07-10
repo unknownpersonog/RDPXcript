@@ -31,7 +31,8 @@ output "If you get missing dependency error, the script fixes it itself!"
 mkdir /crdxcript
 cd /crdxcript
 curl -Lo chrome-remote-desktop_current_amd64.deb https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
-sudo  dpkg -i /crdxcript/chrome-remote-desktop_current_amd64.deb && apt install --no-install-recommends --assume-yes --fix-broken
+sudo dpkg -i /crdxcript/chrome-remote-desktop_current_amd64.deb
+sudk apt install --no-install-recommends --assume-yes --fix-broken
 usermod -aG chrome-remote-desktop "$username"
 cd
 output "Chrome Remote Desktop Installation Completed!"
