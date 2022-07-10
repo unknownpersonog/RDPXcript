@@ -104,6 +104,7 @@ sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/startkde" > /etc/chrome-remo
 auth
 }
 auth() {
+systemctl disable lightdm.service
 output "GUI Installed"
 output "Please go to https://remotedesktop.google.com/headless and click Begin -> Next -> Authorize -> Copy code for Debian Linux"
 ask "Paste the code here: "
