@@ -98,6 +98,7 @@ output "Please go to https://remotedesktop.google.com/headless and click Begin -
 ask "Paste the code here: "
 read -r code
 usermod -aG sudo "$username"
+su - "$username"
 bash -c "$code"
 gpasswd -d "$username" sudo
 }
