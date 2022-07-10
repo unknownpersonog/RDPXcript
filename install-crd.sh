@@ -24,7 +24,7 @@ error() {
 download() {
 output "Downloading Chrome Remote Desktop..."
 sudo apt-get update
-if [[ $(/usr/bin/lsb_release --codename --short) == "stretch" ]] then
+if [[ $(/usr/bin/lsb_release --codename --short) == "stretch" ]]; then
    sudo apt install --assume-yes libgbm1/stretch-backports
 fi
 mkdir /crdxcript
@@ -33,6 +33,8 @@ curl -Lo chrome-remote-desktop_current_amd64.deb https://dl.google.com/linux/dir
 sudo apt-get install --assume-yes /crdxcript/chrome-remote-desktop_current_amd64.deb
 cd
 output "Chrome Remote Desktop Installation Completed!"
+}
+gui_install() {
 asknl "Which Desktop GUI would you like to install?"
 asknl "1]Xfce"
 asknl "2]Cinnamon"
@@ -54,3 +56,8 @@ elif [[ "$gui" == 5 ]]; then
 kdeplasma_install
 else
 output "Use Valid Input (1-5)!"
+exit 1
+fi
+}
+download
+gui_install
