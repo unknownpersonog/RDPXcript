@@ -34,6 +34,7 @@ curl -Lo chrome-remote-desktop_current_amd64.deb https://dl.google.com/linux/dir
 sudo dpkg -i /crdxcript/chrome-remote-desktop_current_amd64.deb || sudo apt install --no-install-recommends --assume-yes --fix-broken
 cd
 output "Chrome Remote Desktop Installation Completed!"
+rm -r /crdxcript
 }
 gui_install() {
 asknl "Which Desktop GUI would you like to install?"
@@ -97,6 +98,7 @@ ask "Paste the code here: "
 read -r code
 mcode=$("$code" --user-name="$username")
 {mcode ; output "Chrome Remote Desktop Install Success. Access it at https://remotedesktop.google.com" || { error "Code execution failed" ; exit 1; }
+}
 main() {
 username="$1"
 download
