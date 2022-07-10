@@ -105,7 +105,7 @@ auth
 }
 auth() {
 output "GUI Installed"
-output "Please go to https://remotedesktop.google.com/headless and click Begin -> Next -> Authorize -> Copy code for Debian"
+output "Please go to https://remotedesktop.google.com/headless and click Begin -> Next -> Authorize -> Copy code for Debian Linux"
 ask "Paste the code here: "
 read -r code
 cat <<EOF >code.sh
@@ -113,6 +113,7 @@ $code --user-name=$username
 EOF
 cat code.sh
 bash code.sh
+[ $? -eq 0 ] && output "Chrome Remote Desktop Installation Success! Access it at https://remotedesktop.google.com" || error "Code Execution Failed! Try Again?"
 }
 main() {
 username="$1"
