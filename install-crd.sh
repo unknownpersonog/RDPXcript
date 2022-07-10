@@ -105,6 +105,7 @@ auth
 }
 auth() {
 systemctl disable lightdm.service
+[ $? -eq 0 ] && output "LightDM Disabled!" || output "LightDM Doesn't Exist"
 output "GUI Installed"
 output "Please go to https://remotedesktop.google.com/headless and click Begin -> Next -> Authorize -> Copy code for Debian Linux"
 ask "Paste the code here: "
@@ -114,7 +115,8 @@ $code --user-name=$username
 EOF
 cat code.sh
 bash code.sh
-[ $? -eq 0 ] && output "Chrome Remote Desktop Installation Success! Access it at https://remotedesktop.google.com" || error "Code Execution Failed! Try Again?"
+[ $? -eq 0 ] && output "Chrome Remote Desktop Installation Success! Access it at https://remotedesktop.google.com/access" || error "Code Execution Failed! Try Again?; exit 1; "
+rm -rf code.sh
 }
 main() {
 username="$1"
