@@ -93,13 +93,15 @@ auth
 }
 auth() {
 output "GUI Installed"
+output "Script will now switch to user "$username". You can switch back after rebooting system."
 output "Please go to https://remotedesktop.google.com/headless and click Begin -> Next -> Authorize -> Copy code for Debian"
 ask "Paste the code here: "
 read -r code
+su - "$username"
 mcode
 }
 mcode() {
-success=$(bash -c "$code --user-name=$username")
+success=$(bash -c "$code")
 "$success" || { error "Code execution failed" ; exit 1; }
 output "Chrome Remote Desktop Install Success. Access it at https://remotedesktop.google.com"
 }
