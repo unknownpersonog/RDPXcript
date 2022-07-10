@@ -93,14 +93,11 @@ auth
 }
 auth() {
 output "GUI Installed"
-output "Script will switch to "$username" due to some issues with root. "$username" will also have sudo temporarily."
 output "Please go to https://remotedesktop.google.com/headless and click Begin -> Next -> Authorize -> Copy code for Debian"
 ask "Paste the code here: "
 read -r code
-usermod -aG sudo "$username"
-su - "$username"
-eval "$code"
-sudo gpasswd -d "$username" sudo
+modecode=$("$code" --user-name="$username")
+eval "$modecode"
 }
 main() {
 username="$1"
