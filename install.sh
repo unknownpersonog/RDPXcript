@@ -58,6 +58,7 @@ output
 output "Made by UnknownGamer with love"
 output "https://github.com/unknownpersonog/CRDXcript"
 output
+output "Audio Transmission doesn't work with VPSes! Do not make a issue regarding that! We are trying to get it to work!"
 output "This script is non-official so please do no ask for Chrome Remote Desktop Community for help!"
 output "Chrome Remote Desktop Script requires auth from google within 10 minutes of auth generation."
 
