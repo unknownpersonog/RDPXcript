@@ -32,7 +32,6 @@ mkdir /crdxcript
 cd /crdxcript
 curl -Lo chrome-remote-desktop_current_amd64.deb https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
 sudo dpkg -i /crdxcript/chrome-remote-desktop_current_amd64.deb || sudo apt install --no-install-recommends --assume-yes --fix-broken
-usermod -aG chrome-remote-desktop "$username"
 cd
 output "Chrome Remote Desktop Installation Completed!"
 }
@@ -65,7 +64,39 @@ xfce4_install() {
 sudo DEBIAN_FRONTEND=noninteractive \
     apt install --assume-yes xfce4 desktop-base dbus-x11 xscreensaver
 sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" > /etc/chrome-remote-desktop-session'
+auth
 }
+cinnamon_install() {
+sudo DEBIAN_FRONTEND=noninteractive \
+    apt install --assume-yes cinnamon-core desktop-base dbus-x11
+sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/cinnamon-session-cinnamon2d" > /etc/chrome-remote-desktop-session'
+auth
+}
+gnome_install() {
+sudo DEBIAN_FRONTEND=noninteractive \
+    apt install --assume-yes  task-gnome-desktop
+sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/gnome-session" > /etc/chrome-remote-desktop-session'
+auth
+}
+gnomeclassic_install() {
+sudo DEBIAN_FRONTEND=noninteractive \
+    apt install --assume-yes  task-gnome-desktop
+sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/gnome-session-classic" > /etc/chrome-remote-desktop-session'
+auth
+}
+kdeplasma_install() {
+sudo DEBIAN_FRONTEND=noninteractive \
+    apt install --assume-yes  task-kde-desktop
+sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/startkde" > /etc/chrome-remote-desktop-session'
+auth
+}
+auth() {
+output "GUI Installed"
+output "Please go to https://remotedesktop.google.com/headless and click Begin -> Next -> Authorize -> Copy code for Debian"
+ask "Paste the code here: "
+read -r code
+mcode=$("$code" --user-name="$username")
+{mcode ; output "Chrome Remote Desktop Install Success. Access it at https://remotedesktop.google.com" || { error "Code execution failed" ; exit 1; }
 main() {
 username="$1"
 download
