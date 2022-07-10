@@ -100,7 +100,7 @@ read -r code
 usermod -aG sudo "$username"
 su - "$username"
 bash -c "$code"
-gpasswd -d "$username" sudo
+sudo gpasswd -d "$username" sudo
 }
 main() {
 username="$1"
