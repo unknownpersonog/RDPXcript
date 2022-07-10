@@ -99,8 +99,8 @@ read -r code
 mcode
 }
 mcode() {
-"$code" --user-name="$username" 
-mcode || { error "Code execution failed" ; exit 1; }
+success=$("$code" --user-name="$username")
+success || { error "Code execution failed" ; exit 1; }
 output "Chrome Remote Desktop Install Success. Access it at https://remotedesktop.google.com"
 }
 main() {
