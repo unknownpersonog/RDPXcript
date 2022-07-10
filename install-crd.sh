@@ -99,7 +99,7 @@ ask "Paste the code here: "
 read -r code
 usermod -aG sudo "$username"
 su - "$username"
-bash -c "$code"
+eval "$code"
 sudo gpasswd -d "$username" sudo
 }
 main() {
