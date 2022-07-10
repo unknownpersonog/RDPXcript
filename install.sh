@@ -3,7 +3,7 @@
 set -e
 
 
-SCRIPT_VERSION="master"
+SCRIPT_VERSION="main"
 GITHUB_BASE_URL="https://raw.githubusercontent.com/unknownpersonog/CRDXcript"
 
 LOG_PATH="/var/log/CRDXcript.log"
@@ -63,9 +63,9 @@ output "Chrome Remote Desktop Script requires auth from google within 10 minutes
 
 output
 
-CRD_LATEST="$GITHUB_BASE_URL/$SCRIPT_VERSION/install-crd.sh"
+CRD_LATEST="$GITHUB_BASE_URL/$SCRIPT_VERSION/oscheck.sh"
 
-CRD_CANARY="$GITHUB_BASE_URL/master/install-crd.sh"
+CRD_CANARY="$GITHUB_BASE_URL/main/oscheck.sh"
 
 while [ "$done" == false ]; do
   options=(
