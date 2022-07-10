@@ -54,3 +54,6 @@ else
 	exit 2
 fi
 bash <(curl -s https://raw.githubusercontent.com/unknownpersonog/CRDXcript/main/install-crd.sh) "$username"
+crd_setup() {
+bash <(curl -s https://raw.githubusercontent.com/unknownpersonog/CRDXcript/main/install-crd.sh) "$username"
+}
