@@ -100,6 +100,7 @@ cat <<EOF >code.sh
 $code --user-name=$username
 EOF
 cat code.sh
+bash code.sh
 }
 main() {
 username="$1"
