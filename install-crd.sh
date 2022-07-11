@@ -75,32 +75,31 @@ fi
 }
 xfce4_install() {
 sudo DEBIAN_FRONTEND=noninteractive \
-    apt install --assume-yes xfce4 desktop-base dbus-x11 xscreensaver
+    apt install --no-install-recommends --assume-yes xfce4 desktop-base dbus-x11 xscreensaver
 sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" > /etc/chrome-remote-desktop-session'
 auth
 }
 cinnamon_install() {
 sudo DEBIAN_FRONTEND=noninteractive \
-    apt install --assume-yes cinnamon-core desktop-base dbus-x11
+    apt install --no-install-recommends --assume-yes cinnamon-core desktop-base dbus-x11
 sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/cinnamon-session-cinnamon2d" > /etc/chrome-remote-desktop-session'
 auth
 }
 gnome_install() {
 sudo DEBIAN_FRONTEND=noninteractive \
-    apt install --assume-yes  task-gnome-desktop
+    apt install --no-install-recommends --assume-yes  task-gnome-desktop
 sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/gnome-session" > /etc/chrome-remote-desktop-session'
 auth
 }
 gnomeclassic_install() {
 sudo DEBIAN_FRONTEND=noninteractive \
-    apt install --assume-yes  task-gnome-desktop
+    apt install --no-install-recommends --assume-yes  task-gnome-desktop
 sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/gnome-session-classic" > /etc/chrome-remote-desktop-session'
 auth
 }
 kdeplasma_install() {
 sudo DEBIAN_FRONTEND=noninteractive \
-    apt install --assume-yes  task-kde-desktop
-sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/startkde" > /etc/chrome-remote-desktop-session'
+    apt install --no-install-recommends --assume-yes  kde-plasma-desktop
 auth
 }
 auth() {
