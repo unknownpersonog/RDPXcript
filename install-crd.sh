@@ -99,7 +99,7 @@ auth
 }
 kdeplasma_install() {
 sudo DEBIAN_FRONTEND=noninteractive \
-    apt install --no-install-recommends --assume-yes  kde-plasma-desktop
+    apt install --no-install-recommends --assume-yes  kde-standard
 auth
 }
 auth() {
