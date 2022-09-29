@@ -15,7 +15,7 @@ if ! [ -x "$(command -v curl)" ]; then
 fi
 
 output() {
-  echo -e "\033[0;34m- ${1} \033[0m"
+  echo -e "\033[0;34m[CRDXcript] ${1} \033[0m"
 }
 ask() {
   GC='\033[0;32m'
@@ -110,9 +110,9 @@ read -r code
 cat <<EOF >code.sh
 $code --user-name=$username
 EOF
-cat code.sh
-bash code.sh
-[ $? -eq 0 ] && output "Chrome Remote Desktop Installation Success! Access it at https://remotedesktop.google.com/access" || error "Code Execution Failed! Try Again?; exit 1; "
+bash code.sh || error "Code Execution Failed! Try Again?" & rm -rf code.sh & exit 1;
+output "Chrome Remote Desktop Installation Success! Access it at https://remotedesktop.google.com/access" 
+sudo systemctl enable chrome-remote-desktop@$username
 rm -rf code.sh
 }
 main() {
