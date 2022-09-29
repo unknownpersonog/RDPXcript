@@ -73,13 +73,13 @@ else
 error "Port is not OK"; exit 1
 fi
 else
-port=3386
+port=3389
 setup_xrdp
 fi
 }
 setup_xrdp() {
 sudo systemctl restart xrdp
-sudo apt install ufw
+sudo apt install ufw -y
 ufw allow 3386
 output "Install success!"
 ip=$(curl -s https://api64.ipify.org/)
