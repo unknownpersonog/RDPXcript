@@ -3,10 +3,10 @@
 set -e
 
 
-SCRIPT_VERSION="v1.3"
-GITHUB_BASE_URL="https://raw.githubusercontent.com/unknownpersonog/CRDXcript"
+SCRIPT_VERSION="v2.0"
+GITHUB_BASE_URL="https://raw.githubusercontent.com/unknownpersonog/RDPXcript"
 
-LOG_PATH="/var/log/CRDXcript.log"
+LOG_PATH="/var/log/RDPXcript.log"
 # exit with error status code if user is not root
 if [[ $EUID -ne 0 ]]; then
   echo "* This script must be executed with root privileges (sudo)." 1>&2
@@ -35,17 +35,16 @@ error() {
 }
 
 cat << "EOF" 
-____________________________  __            _____        _____ 
-__  ____/__  __ \__  __ \_  |/ /_______________(_)_________  /_
-_  /    __  /_/ /_  / / /_    /_  ___/_  ___/_  /___  __ \  __/
-/ /___  _  _, _/_  /_/ /_    | / /__ _  /   _  / __  /_/ / /_  
-\____/  /_/ |_| /_____/ /_/|_| \___/ /_/    /_/  _  .___/\__/  
-                                                 /_/           
-                                                        
+________ ________ ________ ____  __               _____          _____ 
+___  __ \___  __ \___  __ \__  |/ /__________________(_)________ __  /_
+__  /_/ /__  / / /__  /_/ /__    / _  ___/__  ___/__  / ___  __ \_  __/
+_  _, _/ _  /_/ / _  ____/ _    |  / /__  _  /    _  /  __  /_/ // /_  
+/_/ |_|  /_____/  /_/      /_/|_|  \___/  /_/     /_/   _  .___/ \__/  
+                                                        /_/            
 EOF
                                                        
 execute() {
-  echo -e "\n\n* CRDXcript $(date) \n\n" >>$LOG_PATH
+  echo -e "\n\n* RDPXcript $(date) \n\n" >>$LOG_PATH
 
   bash <(curl -s "$1") | tee -a $LOG_PATH
   [[ -n $2 ]] && execute "$2"
@@ -53,10 +52,10 @@ execute() {
 
 done=false
 
-output "CRDXcript @ $SCRIPT_VERSION"
+output "RDPXcript @ $SCRIPT_VERSION"
 output
 output "Made by UnknownGamer with love"
-output "https://github.com/unknownpersonog/CRDXcript"
+output "https://github.com/unknownpersonog/RDPXcript"
 output
 output "Audio Transmission doesn't work with VPSes! Do not make a issue regarding that! We are trying to get it to work!"
 output "This script is non-official so please do no ask for Chrome Remote Desktop Community for help!"
@@ -66,19 +65,19 @@ output
 
 CRD_LATEST="$GITHUB_BASE_URL/$SCRIPT_VERSION/oscheck.sh"
 
-CRD_CANARY="$GITHUB_BASE_URL/main/oscheck.sh"
+XRDP_LATEST="$GITHUB_BASE_URL/$SCRIPT_VERSION/xrdp-install.sh"
 
 while [ "$done" == false ]; do
   options=(
     "Install Chrome Remote Desktop"
 
-    "Install Chrome Remote Desktop with developmemt version of the script (may be broken!)"
+    "Install XRDP"
   )
 
   actions=(
     "$CRD_LATEST"
 
-    "$CRD_CANARY"
+    "$XRDP_LATEST"
   )
 
   output "What would you like to do?"

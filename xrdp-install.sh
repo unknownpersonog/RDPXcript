@@ -52,7 +52,7 @@ if [ $? == 1 ]; then
 output "Port is OK"
 sudo sed -i "s/\(port *= *\).*/\1$port/" /etc/xrdp/xrdp.ini
 output "Port change success"
-setup_xrdp
+gui_install
 else
 error "Port is not OK"; exit 1
 fi
@@ -68,14 +68,46 @@ if [ $? == 1 ]; then
 output "Port is OK"
 sudo sed -i "s/\(port *= *\).*/\1$port/" /etc/xrdp/xrdp.ini
 output "Port change success"
-setup_xrdp
+gui_install
 else
 error "Port is not OK"; exit 1
 fi
 else
 port=3389
-setup_xrdp
+gui_install
 fi
+}
+gui_install() {
+asknl "Which Desktop GUI would you like to install?"
+asknl "1]Xfce"
+asknl "2]Cinnamon"
+output "New GUIs  will come soon"
+ask "Select GUI (1-2): "
+read -r gui
+if [[ "$gui" == 1 ]]; then
+xfce4_install
+elif [[ "$gui" == 2 ]]; then
+cinnamon_install
+else
+output "Use Valid Input (1-2)!"
+exit 1
+fi
+}
+xfce4_install() {
+sudo DEBIAN_FRONTEND=noninteractive \
+    apt install --no-install-recommends --assume-yes xfce4 desktop-base dbus-x11 xscreensaver
+echo "startxfce4" > ~/.Xclients
+chmod +x ~/.Xclients
+sudo systemctl restart xrdp.service
+setup_xrdp
+}
+cinnamon_install() {
+sudo DEBIAN_FRONTEND=noninteractive \
+    apt install --no-install-recommends --assume-yes cinnamon-core desktop-base dbus-x11
+echo "cinnamon" > ~/.Xclients
+chmod +x ~/.Xclients
+sudo systemctl restart xrdp.service
+setup_xrdp
 }
 setup_xrdp() {
 sudo systemctl restart xrdp
