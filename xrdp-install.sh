@@ -47,6 +47,7 @@ re='^[0-9]+$'
 if ! [[ $port =~ $re ]] ; then
 error "Port should be a number!" >&2; exit 1
 fi
+sudo apt install lsof -y
 lsof -i :$port
 if [ $? == 1 ]; then
 output "Port is OK"
@@ -63,6 +64,7 @@ re='^[0-9]+$'
 if ! [[ $port =~ $re ]] ; then
 error "Port should be a number!" >&2; exit 1
 fi
+sudo apt install lsof -y
 lsof -i :$port
 if [ $? == 1 ]; then
 output "Port is OK"
@@ -112,7 +114,7 @@ setup_xrdp
 setup_xrdp() {
 sudo systemctl restart xrdp
 sudo apt install ufw -y
-ufw allow 3386
+ufw allow 3389
 output "Install success!"
 ip=$(curl -s https://api64.ipify.org/)
 output "Use $ip:$port"
