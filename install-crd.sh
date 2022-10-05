@@ -110,7 +110,6 @@ read -r code
 cat <<EOF >code.sh
 $code --user-name=$username
 EOF
-cat code.sh
 if bash code.sh; then
 output "Chrome Remote Desktop Installation Success! Access it at https://remotedesktop.google.com/access"
 sudo systemctl enable chrome-remote-desktop@$username
