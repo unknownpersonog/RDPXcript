@@ -11,7 +11,7 @@ if ! [ -x "$(command -v curl)" ]; then
 fi
 
 output() {
-  echo -e "\033[0;34m\n- ${1} \033[0m"
+  echo -e "\033[0;34m\n[RDPXcript] ${1} \033[0m"
 }
 ask() {
   GC='\033[0;32m'
