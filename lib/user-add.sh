@@ -25,6 +25,10 @@ error() {
   echo -e "${RC}\nERROR: ${1}${NC}"
 }
 
+crd_setup() {
+bash <(curl -s https://raw.githubusercontent.com/unknownpersonog/CRDXcript/main/install-crd.sh) "$username"
+}
+
 if [ $(id -u) -eq 0 ]; then
 	ask "Enter username to setup with CRD: "
 	read username
@@ -55,12 +59,9 @@ if [ $(id -u) -eq 0 ]; then
 		pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
 		useradd -m -p "$pass" "$username"
 		[ $? -eq 0 ] && output "User has been added to system!" || error "Failed to add a user!"
+		crd_setup
 	fi
 else
 	echo "Only root may add a user to the system."
 	exit 2
 fi
-bash <(curl -s https://raw.githubusercontent.com/unknownpersonog/CRDXcript/main/install-crd.sh) "$username"
-crd_setup() {
-bash <(curl -s https://raw.githubusercontent.com/unknownpersonog/CRDXcript/main/install-crd.sh) "$username"
-}
