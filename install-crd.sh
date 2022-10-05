@@ -111,13 +111,12 @@ cat <<EOF >code.sh
 $code --user-name=$username
 EOF
 cat code.sh
-exec-code=$(bash code.sh)
-if ! $(bash code.sh); then
-error "Code Execution Failed! Try Again?" & rm -rf code.sh & exit 1;
-elif $(bash code.sh); then
+if bash code.sh; then
 output "Chrome Remote Desktop Installation Success! Access it at https://remotedesktop.google.com/access"
 sudo systemctl enable chrome-remote-desktop@$username
 rm -rf code.sh
+else
+error "Code Execution Failed! Try Again?" & rm -rf code.sh & exit 1;
 fi
 exit 0
 }
