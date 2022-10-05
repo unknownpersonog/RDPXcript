@@ -58,7 +58,7 @@ else
 fi
 }
 user_redirect() {
-bash <(curl -s https://raw.githubusercontent.com/unknownpersonog/CRDXcript/main/lib/user-add.sh)
+bash <(curl -s https://raw.githubusercontent.com/unknownpersonog/CRDXcript/v2.1/lib/user-add.sh)
 }
 os_check
 user_redirect
