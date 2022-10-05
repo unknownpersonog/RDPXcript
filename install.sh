@@ -21,7 +21,7 @@ if ! [ -x "$(command -v curl)" ]; then
 fi
 
 output() {
-  echo -e "\033[0;34m- ${1} \033[0m"
+  echo -e "\033[0;34m[RDPXcript] ${1} \033[0m"
 }
 
 error() {
