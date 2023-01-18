@@ -3,7 +3,7 @@
 set -e
 
 
-SCRIPT_VERSION="v2.1"
+SCRIPT_VERSION="main"
 GITHUB_BASE_URL="https://raw.githubusercontent.com/dxomg/rdpscript/"
 
 LOG_PATH="/var/log/RDPXcript.log"
