@@ -3,7 +3,7 @@
 set -e
 
 
-SCRIPT_VERSION="v2.1"
+SCRIPT_VERSION="v3.0"
 GITHUB_BASE_URL="https://raw.githubusercontent.com/unknownpersonog/RDPXcript"
 
 LOG_PATH="/var/log/RDPXcript.log"
@@ -30,7 +30,7 @@ error() {
   
 
   echo ""
-  echo -e "* ${COLOR_RED}ERROR${COLOR_NC}: $1"
+  echo -e "[ERROR] ${COLOR_RED}ERROR${COLOR_NC}: $1"
   echo ""
 }
 
@@ -67,17 +67,22 @@ CRD_LATEST="$GITHUB_BASE_URL/$SCRIPT_VERSION/oscheck.sh"
 
 XRDP_LATEST="$GITHUB_BASE_URL/$SCRIPT_VERSION/xrdp-install.sh"
 
+VNC_LATEST="vnc-install.sh"
 while [ "$done" == false ]; do
   options=(
     "Install Chrome Remote Desktop"
 
     "Install XRDP"
+
+    "Install VNC"
   )
 
   actions=(
     "$CRD_LATEST"
 
     "$XRDP_LATEST"
+
+    "$VNC_LATEST"
   )
 
   output "What would you like to do?"

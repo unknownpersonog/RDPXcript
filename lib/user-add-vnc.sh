@@ -25,8 +25,8 @@ error() {
   echo -e "${RC}\nERROR: ${1}${NC}"
 }
 
-crd_setup() {
-bash <(curl -s https://raw.githubusercontent.com/unknownpersonog/CRDXcript/v2.1/install-crd.sh) "$username"
+vnc_setup() {
+bash <(curl -s https://raw.githubusercontent.com/unknownpersonog/RDPXcript/v3.0/vnc-install.sh) "$username"
 }
 
 if [ $(id -u) -eq 0 ]; then
@@ -58,8 +58,8 @@ if [ $(id -u) -eq 0 ]; then
 	else
 		pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
 		useradd -m -p "$pass" "$username"
-		[ $? -eq 0 ] && output "User has been added to system!" || error "Failed to add a user!" && exit 1
-		crd_setup
+		[ $? -eq 0 ] && output "User has been added to system!" || error "Failed to add a user!"
+		vnc_setup
 	fi
 else
 	echo "Only root may add a user to the system."
