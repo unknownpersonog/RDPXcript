@@ -26,24 +26,6 @@ output "*****************************"
 
 sleep 5
 
-ask "Is Your VPS IPv6 Only? (Y/n): "
-read -r ipv46
-if [[ "$ipv46" == Y ]]; then
-IPV6="y"
-gui_install
-elif [[ "$ipv46" == y ]]; then
-IPV6="y"
-gui_install
-elif [[ "$ipv46" == N ]]; then
-IPV6="n"
-gui_install
-elif [[ "$ipv46" == n ]]; then
-IPV6="n"
-gui_install
-else
-error "Invalid Choice" && exit 1
-fi
-
 gui_install() {
 output "Installing XFCE GUI"
 sudo DEBIAN_FRONTEND=noninteractive \
@@ -95,3 +77,22 @@ goodbye() {
   error "Some error occurred" && exit 1
   fi
 }
+
+ask "Is Your VPS IPv6 Only? (Y/n): "
+read -r ipv46
+if [[ "$ipv46" == Y ]]; then
+IPV6="y"
+gui_install
+elif [[ "$ipv46" == y ]]; then
+IPV6="y"
+gui_install
+elif [[ "$ipv46" == N ]]; then
+IPV6="n"
+gui_install
+elif [[ "$ipv46" == n ]]; then
+IPV6="n"
+gui_install
+else
+error "Invalid Choice" && exit 1
+fi
+
