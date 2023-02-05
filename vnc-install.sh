@@ -45,7 +45,7 @@ sudo apt --fix-broken install
 }
 
 vnc_setup() {
-output "Add a password to secure your server"
+output "Add a password to secure your server. If nothing is visible just type password and press enter and again type password and press enter"
 sudo -H -u "$username" bash -c vncpasswd
 [ $? -eq 0 ] && output "VNC Password entry success" && vnc_teststart || error "Failed to password protect VNC" && exit 1
 }
@@ -56,7 +56,7 @@ sudo -H -u "$username" bash -c vncserver -localhost no
 }
 
 vnc_kill() {
-sudo -H -u "$username" sudo bash -c 'vncserver -kill :*'
+sudo -H -u "$username" bash -c 'vncserver -kill :*'
 [ $? -eq 0 ] && output "VNC Killed Successfully" && vnc_autostart || error "Failed to kill VNC" && exit 1
 }
 
