@@ -29,16 +29,16 @@ sleep 5
 ask "Is Your VPS IPv6 Only? (Y/n): "
 read -r ipv46
 if [[ "$ipv46" == Y ]]; then
-$IPV6="y"
+IPV6="y"
 gui_install
 elif [[ "$ipv46" == y ]]; then
-$IPV6="y"
+IPV6="y"
 gui_install
 elif [[ "$ipv46" == N ]]; then
-$IPV6="n"
+IPV6="n"
 gui_install
 elif [[ "$ipv46" == n ]]; then
-$IPV6="n"
+IPV6="n"
 gui_install
 else
 error "Invalid Choice" && exit 1
