@@ -57,20 +57,7 @@ sudo -H -u "$username" bash -c vncserver -localhost no
 
 vnc_kill() {
 sudo -H -u "$username" bash -c 'vncserver -kill :*'
-[ $? -eq 0 ] && output "VNC Killed Successfully" && vnc_autostart || error "Failed to kill VNC" && exit 1
-}
-
-vnc_autostart() {
-sudo -H -u "$username" bash -c 'mv ~/.vnc/xstartup ~/.vnc/xstartup.bak | grep "no output"'
-[ $? -eq 0 ] && output "Created xstartup backup" && vnc_config || vnc_config
-}
-
-vnc_config() {
-sudo -H -u "$username" bash -c 'touch ~/.vnc/xstartup'
-sudo -H -u "$username" bash -c 'echo -e '#!/bin/bash \nxrdb ~/.Xresources \nstartxfce4' > ~/.vnc/xstartup'
-sudo -H -u "$username" bash -c 'chmod u+x $HOME/.vnc/xstartup'
-sudo -H -u "$username" bash -c 'chmod 777 $HOME/.vnc/xstartup'
-[ $? -eq 0 ] && output "VNC Configured" && vnc_start || error "Failed to configure VNC" && exit 1
+[ $? -eq 0 ] && output "VNC Killed Successfully" && vnc_start || error "Failed to kill VNC" && exit 1
 }
 
 vnc_start() {
