@@ -30,7 +30,7 @@ bash <(curl -s https://raw.githubusercontent.com/unknownpersonog/RDPXcript/exper
 }
 
 if [ $(id -u) -eq 0 ]; then
-	ask "Enter username to setup with CRD: "
+	ask "Enter username to setup with VNC: "
 	read username
 	ask "Enter password for user: "
 	read -s password
@@ -50,7 +50,7 @@ if [ $(id -u) -eq 0 ]; then
 		read -r continue
 		if [[ "$continue" =~ [Yy] ]]
 		then
-		crd_setup
+		vnc_setup
 		else
 		error "User already exists"
 		exit 1
