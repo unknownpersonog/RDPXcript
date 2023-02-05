@@ -1,3 +1,4 @@
+#!/bin/bash
 output() {
   echo -e "\033[0;34m[RDPXcript] ${1} \033[0m"
 }
@@ -51,30 +52,38 @@ sudo -H -u "$username" bash -c vncpasswd
 
 vnc_teststart() {
 sudo -H -u "$username" bash -c vncserver -localhost no
-[ $? -eq 0 ] && output "VNC Startup success" && vnc_config || error "Failed to start VNC" && exit 1
+[ $? -eq 0 ] && output "VNC Startup success" && vnc_kill || error "Failed to start VNC" && exit 1
+}
+
+vnc_kill() {
+sudo -H -u "$username" sudo bash -c 'vncserver -kill :*'
+[ $? -eq 0 ] && output "VNC Killed Successfully" && vnc_autostart || error "Failed to kill VNC" && exit 1
+}
+
+vnc_autostart() {
+sudo -H -u "$username" bash -c 'mv ~/.vnc/xstartup ~/.vnc/xstartup.bak | grep "no output"'
+[ $? -eq 0 ] && output "Created xstartup backup" && vnc_config || vnc_config
 }
 
 vnc_config() {
-sudo -H -u "$username" bash -c vncserver -kill :*
-[ $? -eq 0 ] && output "VNC Killed Successfully" || error "Failed to kill VNC" && exit 1
-sudo -H -u "$username" bash -c mv ~/.vnc/xstartup ~/.vnc/xstartup.bak
-[ $? -eq 0 ] && output "Created xstartup backup" || error "Failed to create xstartup backup" && exit 1
-sudo -H -u "$username" bash -c echo -e '#!/bin/bash \nxrdb $HOME/.Xresources \nstartxfce4 &' > ~/.vnc/xstartup
-sudo -H -u "$username" bash -c chmod u+x  ~/.vnc/xstartup 
-sudo -H -u "$username" bash -c chmod 777 ~/.vnc/xstartup
+sudo -H -u "$username" bash -c 'touch ~/.vnc/xstartup'
+sudo -H -u "$username" bash -c 'echo -e '#!/bin/bash \nxrdb ~/.Xresources \nstartxfce4 &' > ~/.vnc/xstartup'
+sudo -H -u "$username" bash -c 'chmod u+x $HOME/.vnc/xstartup'
+sudo -H -u "$username" bash -c 'chmod 777 $HOME/.vnc/xstartup'
 [ $? -eq 0 ] && output "VNC Configured" && vnc_start || error "Failed to configure VNC" && exit 1
 }
+
 vnc_start() {
   sudo -H -u "$username" bash -c vncserver
   [ $? -eq 0 ] && output "VNC Startup success" && goodbye|| error "Failed to start VNC" && exit 1
 }
 goodbye() {
   if [[ "$IPV6" == y ]]; then
-  vps_port=$(lsof -i tcp -P | grep "vnc" | grep IPv6 | awk '{print $9}' | cut -d ":" -f 2 | head -n 1)
+  vnc_port=$(lsof -i tcp -P | grep "vnc" | grep IPv6 | awk '{print $9}' | cut -d ":" -f 2 | head -n 1)
   ip=$(curl -6 -s https://api64.ipify.org/)
-  output "VNC Installed. Accessing at a vnc viewer using $ip:$vnc_port"
+  output "VNC Installed. Accessing at a vnc viewer using "$ip":"$vnc_port""
   elif [[ "$IPV6" == n ]]; then
-  vps_port=$(lsof -i tcp -P | grep "vnc" | grep IPv4 | awk '{print $9}' | cut -d ":" -f 2 | head -n 1)
+  vnc_port=$(lsof -i tcp -P | grep "vnc" | grep IPv4 | awk '{print $9}' | cut -d ":" -f 2 | head -n 1)
   ip=$(curl -4 -s https://api64.ipify.org/)
   output "VNC Installed. Accessing at a vnc viewer using $ip:$vnc_port"  
   else
