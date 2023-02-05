@@ -28,7 +28,7 @@ error() {
 vnc_setup() {
 output "Giving user sudo privileges"
 sudo usermod -aG sudo $username
-bash https://raw.githubusercontent.com/unknownpersonog/RDPXcript/experimental/vnc-install.sh "$username"
+bash <(curl -s https://raw.githubusercontent.com/unknownpersonog/RDPXcript/experimental/vnc-install.sh) "$username"
 }
 
 if [ $(id -u) -eq 0 ]; then
