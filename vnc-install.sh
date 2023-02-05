@@ -44,29 +44,28 @@ sudo apt --fix-broken install
 }
 
 vnc_setup() {
-su - "$username"
 output "Add a password to secure your server"
-vncpasswd
+sudo -H -u "$username" bash -c vncpasswd
 [ $? -eq 0 ] && output "VNC Password entry success" && vnc_teststart || error "Failed to password protect VNC" && exit 1
 }
 
 vnc_teststart() {
-vncserver -localhost no
+sudo -H -u "$username" bash -c vncserver -localhost no
 [ $? -eq 0 ] && output "VNC Startup success" && vnc_config || error "Failed to start VNC" && exit 1
 }
 
 vnc_config() {
-vncserver -kill :*
+sudo -H -u "$username" bash -c vncserver -kill :*
 [ $? -eq 0 ] && output "VNC Killed Successfully" || error "Failed to kill VNC" && exit 1
-mv ~/.vnc/xstartup ~/.vnc/xstartup.bak
+sudo -H -u "$username" bash -c mv ~/.vnc/xstartup ~/.vnc/xstartup.bak
 [ $? -eq 0 ] && output "Created xstartup backup" || error "Failed to create xstartup backup" && exit 1
-echo -e '#!/bin/bash \nxrdb $HOME/.Xresources \nstartxfce4 &' > ~/.vnc/xstartup
-sudo chmod u+x  ~/.vnc/xstartup 
-sudo chmod 777 ~/.vnc/xstartup
+sudo -H -u "$username" bash -c echo -e '#!/bin/bash \nxrdb $HOME/.Xresources \nstartxfce4 &' > ~/.vnc/xstartup
+sudo -H -u "$username" bash -c chmod u+x  ~/.vnc/xstartup 
+sudo -H -u "$username" bash -c chmod 777 ~/.vnc/xstartup
 [ $? -eq 0 ] && output "VNC Configured" && vnc_start || error "Failed to configure VNC" && exit 1
 }
 vnc_start() {
-  vncserver
+  sudo -H -u "$username" bash -c vncserver
   [ $? -eq 0 ] && output "VNC Startup success" && goodbye|| error "Failed to start VNC" && exit 1
 }
 goodbye() {
