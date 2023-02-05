@@ -35,11 +35,16 @@ sudo DEBIAN_FRONTEND=noninteractive \
 
 depend_install() {
     sudo apt install -y tigervnc-standalone-server tigervnc-common
-[ $? -eq 0 ] && output "Dependency Install success" && vnc_setup || error "Failed to install dependencies" && exit 1
+[ $? -eq 0 ] && output "Dependency Install success" && vnc_setup || error "Failed to install dependencies" && depend_fix
+}
+
+depend_fix() {
+sudo apt --fix-broken install
+[ $? -eq 0 ] && output "Fixed dependencies" && vnc_setup || error "Failed to fix dependencies" && exit 1
 }
 
 vnc_setup() {
-su - $username
+su - "$username"
 output "Add a password to secure your server"
 vncpasswd
 [ $? -eq 0 ] && output "VNC Password entry success" && vnc_teststart || error "Failed to password protect VNC" && exit 1
