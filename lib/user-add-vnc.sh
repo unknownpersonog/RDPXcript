@@ -26,7 +26,7 @@ error() {
 }
 
 vnc_setup() {
-bash <(curl -s https://raw.githubusercontent.com/unknownpersonog/RDPXcript/v3.0/vnc-install.sh) "$username"
+bash <(curl -s https://raw.githubusercontent.com/unknownpersonog/RDPXcript/experimental/vnc-install.sh) "$username"
 }
 
 if [ $(id -u) -eq 0 ]; then
