@@ -67,7 +67,7 @@ CRD_LATEST="$GITHUB_BASE_URL/$SCRIPT_VERSION/oscheck.sh"
 
 XRDP_LATEST="$GITHUB_BASE_URL/$SCRIPT_VERSION/xrdp-install.sh"
 
-VNC_LATEST="$GITHUB_BASE_URL/experimental/vnc-install.sh"
+VNC_LATEST="$GITHUB_BASE_URL/experimental/user-add-vnc.sh"
 while [ "$done" == false ]; do
   options=(
     "Install Chrome Remote Desktop"
