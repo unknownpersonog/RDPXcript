@@ -3,7 +3,7 @@
 set -e
 
 
-export SCRIPT_VERSION="main"
+export SCRIPT_VERSION="v2.2"
 export GITHUB_BASE_URL="https://raw.githubusercontent.com/unknownpersonog/RDPXcript"
 
 LOG_PATH="/var/log/RDPXcript.log"

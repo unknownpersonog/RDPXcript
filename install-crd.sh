@@ -37,7 +37,7 @@ download() {
 output "Downloading Chrome Remote Desktop..."
 sudo apt-get update
 if [[ $(/usr/bin/lsb_release --codename --short) == "stretch" ]]; then
-   sudo apt install --assume-yes libgbm1/stretch-backports
+   sudo apt-get install --assume-yes libgbm1/stretch-backports
 fi
 output "If you get missing dependency error, the script fixes it itself!"
 mkdir /crdxcript
@@ -63,7 +63,7 @@ fi
 }
 lxde_install() {
 sudo DEBIAN_FRONTEND=noninteractive \
-    apt install --no-install-recommends --assume-yes lxde
+    apt-get install --no-install-recommends --assume-yes lxde
 sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/startlxde" > /etc/chrome-remote-desktop-session'
 auth
 }

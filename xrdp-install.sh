@@ -13,7 +13,7 @@ if ! [ -x "$(command -v curl)" ]; then
 fi
 
 output() {
-  echo -e "\033[0;34m[CRDXcript] ${1} \033[0m"
+  echo -e "\033[0;34m[RDPXcript] ${1} \033[0m"
 }
 ask() {
   GC='\033[0;32m'
@@ -32,8 +32,8 @@ error() {
 }
 download() {
 output "Downloading and Installing XRDP..."
-sudo apt update
-sudo apt install xrdp -y
+sudo apt-get update
+sudo apt-get install xrdp -y
 output "Adding XRDP to ssl-cert group"
 sudo usermod -a -G ssl-cert xrdp
 }
@@ -81,39 +81,28 @@ fi
 }
 gui_install() {
 asknl "Which Desktop GUI would you like to install?"
-asknl "1]Xfce"
-asknl "2]Cinnamon"
+asknl "1] LXDE"
 output "New GUIs  will come soon"
-ask "Select GUI (1-2): "
+ask "Select GUI (1-1): "
 read -r gui
 if [[ "$gui" == 1 ]]; then
-xfce4_install
-elif [[ "$gui" == 2 ]]; then
-cinnamon_install
+lxde_install
 else
 output "Use Valid Input (1-2)!"
 exit 1
 fi
 }
-xfce4_install() {
+lxde_install() {
 sudo DEBIAN_FRONTEND=noninteractive \
-    apt install --no-install-recommends --assume-yes xfce4 desktop-base dbus-x11 xscreensaver
-echo "startxfce4" > ~/.Xclients
-chmod +x ~/.Xclients
-sudo systemctl restart xrdp.service
-setup_xrdp
-}
-cinnamon_install() {
-sudo DEBIAN_FRONTEND=noninteractive \
-    apt install --no-install-recommends --assume-yes cinnamon-core desktop-base dbus-x11
-echo "cinnamon" > ~/.Xclients
+    apt-get install --no-install-recommends --assume-yes lxde
+echo "startlxde" > ~/.Xclients
 chmod +x ~/.Xclients
 sudo systemctl restart xrdp.service
 setup_xrdp
 }
 setup_xrdp() {
 sudo systemctl restart xrdp
-sudo apt install ufw -y
+sudo apt-get install ufw -y
 ufw allow 3389
 output "Install success!"
 ip=$(curl -s https://api64.ipify.org/)
