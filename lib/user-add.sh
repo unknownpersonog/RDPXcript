@@ -26,7 +26,7 @@ error() {
 }
 
 crd_setup() {
-bash <(curl -s https://raw.githubusercontent.com/unknownpersonog/CRDXcript/v2.1/install-crd.sh) "$username"
+bash <(curl -s $GITHUB_BASE_URL/$SCRIPT_VERSION/install-crd.sh) "$username"
 }
 
 if [ $(id -u) -eq 0 ]; then
