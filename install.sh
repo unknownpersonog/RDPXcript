@@ -24,6 +24,12 @@ output() {
   echo -e "\033[0;34m[RDPXcript] ${1} \033[0m"
 }
 
+ask() {
+  GC='\033[0;32m'
+  NC='\033[0m'
+  echo -e -n "${GC}- ${1}${NC} "
+}
+
 error() {
   COLOR_RED='\033[0;31m'
   COLOR_NC='\033[0m'
@@ -63,6 +69,18 @@ output "Chrome Remote Desktop Script requires auth from google within 10 minutes
 
 output
 
+ask "Fix systemctl? (Use if you have docker (proot) container.) (Y/n): "
+read -r fixSystemctl
+
+if [[ "$fixSystemctl" == y ]]; then
+  sudo apt-get install python3 -y
+  sudo rm -rf /bin/systemctl || curl -o /bin/systemctl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py
+elif [[ "$fixSystemctl" == Y ]]; then
+  sudo apt-get install python3 -y
+  sudo rm -rf /bin/systemctl || curl -o /bin/systemctl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py
+else 
+  output "Proceeding without fix"
+fi
 CRD_LATEST="$GITHUB_BASE_URL/$SCRIPT_VERSION/oscheck.sh"
 
 XRDP_LATEST="$GITHUB_BASE_URL/$SCRIPT_VERSION/xrdp-install.sh"
