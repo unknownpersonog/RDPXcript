@@ -50,56 +50,21 @@ rm -r /crdxcript
 }
 gui_install() {
 asknl "Which Desktop GUI would you like to install?"
-asknl "1]Xfce"
-asknl "2]Cinnamon"
-asknl "3]Gnome"
-asknl "4]Gnome Classic"
-asknl "5]KDE Plasma"
-output "New GUIs  will come soon"
-ask "Select GUI (1-5): "
+asknl "1] LXDE"
+output "Problematic GUIs have been removed."
+ask "Select GUI (1-1): "
 read -r gui
 if [[ "$gui" == 1 ]]; then
-xfce4_install
-elif [[ "$gui" == 2 ]]; then
-cinnamon_install
-elif [[ "$gui" == 3 ]]; then
-gnome_install
-elif [[ "$gui" == 4 ]]; then
-gnomeclassic_install
-elif [[ "$gui" == 5 ]]; then
-kdeplasma_install
+lxde_install
 else
 output "Use Valid Input (1-5)!"
 exit 1
 fi
 }
-xfce4_install() {
+lxde_install() {
 sudo DEBIAN_FRONTEND=noninteractive \
-    apt install --no-install-recommends --assume-yes xfce4 desktop-base dbus-x11 xscreensaver
-sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" > /etc/chrome-remote-desktop-session'
-auth
-}
-cinnamon_install() {
-sudo DEBIAN_FRONTEND=noninteractive \
-    apt install --no-install-recommends --assume-yes cinnamon-core desktop-base dbus-x11
-sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/cinnamon-session-cinnamon2d" > /etc/chrome-remote-desktop-session'
-auth
-}
-gnome_install() {
-sudo DEBIAN_FRONTEND=noninteractive \
-    apt install --no-install-recommends --assume-yes  task-gnome-desktop
-sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/gnome-session" > /etc/chrome-remote-desktop-session'
-auth
-}
-gnomeclassic_install() {
-sudo DEBIAN_FRONTEND=noninteractive \
-    apt install --no-install-recommends --assume-yes  task-gnome-desktop
-sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/gnome-session-classic" > /etc/chrome-remote-desktop-session'
-auth
-}
-kdeplasma_install() {
-sudo DEBIAN_FRONTEND=noninteractive \
-    apt install --no-install-recommends --assume-yes  kde-standard
+    apt install --no-install-recommends --assume-yes lxde
+sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/startlxde" > /etc/chrome-remote-desktop-session'
 auth
 }
 auth() {
