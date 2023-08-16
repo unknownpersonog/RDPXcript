@@ -3,7 +3,7 @@
 set -e
 
 
-export SCRIPT_VERSION="v2.3"
+export SCRIPT_VERSION="main"
 export GITHUB_BASE_URL="https://raw.githubusercontent.com/unknownpersonog/RDPXcript"
 
 LOG_PATH="/var/log/RDPXcript.log"
@@ -69,18 +69,6 @@ output "Chrome Remote Desktop Script requires auth from google within 10 minutes
 
 output
 
-ask "Fix systemctl? (Use if you have docker (proot) container.) (Y/n): "
-read -r fixSystemctl
-
-if [[ "$fixSystemctl" == y ]]; then
-  sudo apt-get install python3 -y
-  sudo rm -rf /bin/systemctl ; curl -o /bin/systemctl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py && sudo chmod +x /bin/systemctl
-elif [[ "$fixSystemctl" == Y ]]; then
-  sudo apt-get install python3 -y
-  sudo rm -rf /bin/systemctl ; curl -o /bin/systemctl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py && sudo chmod +x /bin/systemctl
-else 
-  output "Proceeding without fix"
-fi
 CRD_LATEST="$GITHUB_BASE_URL/$SCRIPT_VERSION/oscheck.sh"
 
 XRDP_LATEST="$GITHUB_BASE_URL/$SCRIPT_VERSION/xrdp-install.sh"
